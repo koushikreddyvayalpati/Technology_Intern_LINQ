@@ -19,7 +19,7 @@ class SalesDashboard:
     def connect_database(self):
         """Connect to MongoDB"""
         try:
-            print("🔌 Connecting to MongoDB...")
+            print("Connecting to MongoDB...")
             self.client = pymongo.MongoClient(
                 'mongodb+srv://koushik1314:Kalyani713@linqbackend.o0g46ue.mongodb.net/?retryWrites=true&w=majority&appName=Linqbackend',
                 serverSelectionTimeoutMS=10000
@@ -31,25 +31,25 @@ class SalesDashboard:
             self.db = self.client['linq_assessment']
             self.collection = self.db['sales_data']
             
-            print("✅ Database connection successful")
+            print(" Database connection successful")
             return True
             
         except Exception as e:
-            print(f"❌ Database connection failed: {e}")
+            print(f"Database connection failed: {e}")
             return False
     
     def fetch_data(self):
         """Fetch and prepare data for visualization"""
         try:
-            print("📊 Fetching data from database...")
+            print("Fetching data from database...")
             
             # Check if data exists
             count = self.collection.count_documents({})
             if count == 0:
-                print("⚠️  No data found in database. Run data_ingest.py first.")
+                print("  No data found in database. Run data_ingest.py first.")
                 return False
             
-            print(f"📈 Found {count} records")
+            print(f" Found {count} records")
             
             # Fetch all data
             cursor = self.collection.find({})
@@ -63,11 +63,11 @@ class SalesDashboard:
             self.data['date'] = self.data['timestamp'].dt.date
             self.data['hour'] = self.data['timestamp'].dt.hour
             
-            print("✅ Data fetching completed")
+            print("Data fetching completed")
             return True
             
         except Exception as e:
-            print(f"❌ Data fetching failed: {e}")
+            print(f"Data fetching failed: {e}")
             return False
     
     def create_time_series_chart(self):
@@ -320,17 +320,17 @@ class SalesDashboard:
             # Save as HTML
             html_file = f"{filename}.html"
             fig.write_html(html_file)
-            print(f"📊 Dashboard saved as {html_file}")
+            print(f" Dashboard saved as {html_file}")
             
             # Save as PNG
             png_file = f"{filename}.png"
             fig.write_image(png_file, width=1400, height=1200, scale=2)
-            print(f"📊 Dashboard saved as {png_file}")
+            print(f"Dashboard saved as {png_file}")
             
             return html_file, png_file
             
         except Exception as e:
-            print(f"❌ Error saving dashboard: {e}")
+            print(f"Error saving dashboard: {e}")
             return None, None
     
     def open_dashboard(self, html_file):
@@ -338,15 +338,15 @@ class SalesDashboard:
         try:
             full_path = os.path.abspath(html_file)
             webbrowser.open(f'file://{full_path}')
-            print(f"🌐 Dashboard opened in browser: {html_file}")
+            print(f"Dashboard opened in browser: {html_file}")
         except Exception as e:
-            print(f"❌ Error opening dashboard: {e}")
+            print(f"Error opening dashboard: {e}")
     
     def close_connection(self):
         """Close database connection"""
         if self.client:
             self.client.close()
-            print("🔐 Database connection closed")
+            print("Database connection closed")
 
 def main():
     dashboard = SalesDashboard()
@@ -380,15 +380,15 @@ def main():
             print(f"   Top Category: {stats['top_category']}")
             print(f"   Top Region: {stats['top_region']}")
             
-            print("\n🎉 Visualization completed successfully!")
+            print("\n Visualization completed successfully!")
         else:
-            print("💥 Dashboard creation failed")
+            print("Dashboard creation failed")
             sys.exit(1)
     
     except KeyboardInterrupt:
-        print("\n⏹️  Process interrupted by user")
+        print("\n Process interrupted by user")
     except Exception as e:
-        print(f"💥 Unexpected error: {e}")
+        print(f" Unexpected error: {e}")
         sys.exit(1)
     finally:
         dashboard.close_connection()
