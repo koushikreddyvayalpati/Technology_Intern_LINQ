@@ -66,6 +66,7 @@ npm start
 npm run realtime
 # Visit http://localhost:3001
 ```
+<img width="2940" height="1646" alt="image" src="https://github.com/user-attachments/assets/86705c65-38cc-47a3-8c06-d49d493ff0dc" />
 
 ## **How to Test the Real-Time Dashboard**
 
