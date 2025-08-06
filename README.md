@@ -1,6 +1,6 @@
 # Linq Technology Intern Assessment
 
-A complete data pipeline solution demonstrating professional-grade architecture with MongoDB, automated data ingestion, and interactive visualizations.
+A complete data pipeline solution demonstrating professional-grade architecture with MongoDB, automated data ingestion, and interactive visualizations using python and express.js.
 
 ## Assessment Overview
 
@@ -12,7 +12,7 @@ This project implements all required deliverables plus bonus features:
 
 ## Quick Start
 
-### 🎯 **Quick Test - Real-Time Dashboard**
+###**Quick Test - Real-Time Dashboard**
 Want to see the real-time dashboard in action? Here's the fastest way:
 
 ```bash
@@ -33,7 +33,7 @@ npm run realtime
 # 6. (Optional) In new terminal: python realtime_data_generator.py 50
 ```
 
-**That's it!** You'll see live transactions updating in real-time! 🚀
+**That's it!** You can see the real time transactions! 
 
 ---
 
@@ -67,7 +67,7 @@ npm run realtime
 # Visit http://localhost:3001
 ```
 
-## 🚀 **How to Test the Real-Time Dashboard**
+## **How to Test the Real-Time Dashboard**
 
 ### **Step 1: Start the Real-Time Dashboard**
 ```bash
@@ -89,11 +89,11 @@ python realtime_data_generator.py 50
 This creates 50 transactions per second for live testing.
 
 ### **What You'll See:**
-- 📊 **Live Transaction Counter** - Numbers updating in real-time
-- 🚀 **Live TPS Display** - Shows transactions per second
-- 📈 **Real-time Charts** - Charts updating with new data
-- 💰 **Live Revenue Stats** - Revenue and transaction counts
-- 🔄 **Auto-refresh** - No need to reload the page
+- **Live Transaction Counter** - Numbers updating in real-time
+- **Live TPS Display** - Shows transactions per second
+- **Real-time Charts** - Charts updating with new data
+- **Live Revenue Stats** - Revenue and transaction counts
+- **Auto-refresh** - No need to reload the page
 
 ### **Dashboard Features:**
 - **Real-time Updates**: See data change instantly
@@ -196,7 +196,7 @@ This creates 50 transactions per second for live testing.
 - Interactive UI showing live transactions
 
 ## API Endpoints
-
+Developed the MVC architecture for the backend using express.js for realtime dashboard analytics
 ### Core Operations
 - `GET /api/health` - System health check
 - `GET /api/sales` - Retrieve sales data with pagination
@@ -212,7 +212,7 @@ This creates 50 transactions per second for live testing.
 
 ## Assessment Deliverables Status
 
-### Required Deliverables ✅
+### Required Deliverables 
 - [x] **README.md** - Project overview (this file)
 - [x] **datastore-setup.md** - Database choice explanation
 - [x] **datastore_setup.js** - Database setup script
@@ -222,10 +222,10 @@ This creates 50 transactions per second for live testing.
 - [x] **dashboard.png** - Dashboard screenshot
 - [x] **visualization.md** - Visualization documentation
 
-### Bonus Deliverables ✅
+### Bonus Deliverables 
 - [x] **docker-compose.yml** - Container orchestration
 - [x] **transformations.py** - Data transformation pipeline
-- [x] **Real-time updates** - Live dashboard implementation for 50 transactions per second
+- [x] **Real-time updates** - Live dashboard implementation for 50 transactions per second generarted using the python for sample real world scenario.
 - [x] **Professional Architecture** - MVC structure with 10+ endpoints
 - [x] **Advanced Features** - Beyond basic requirements
 
