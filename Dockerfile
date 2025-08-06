@@ -39,19 +39,19 @@ RUN cat > start.sh << 'EOF'
 #!/bin/bash
 set -e
 
-echo "🚀 Starting Linq Assessment - Single Container Mode"
-echo "📦 Container includes: Node.js API + Python Data Processing + MongoDB Client"
+echo "Starting Linq Assessment - API + Data Generator Mode"
+echo "Container includes: Node.js API + Python Data Processing + MongoDB Client"
 
 # Function to cleanup on exit
 cleanup() {
-    echo "🛑 Shutting down all services..."
+    echo "Shutting down all services..."
     kill $(jobs -p) 2>/dev/null || true
     exit 0
 }
 trap cleanup SIGTERM SIGINT
 
 # Start the Node.js API server
-echo "🟢 Starting Node.js API server on port 3000..."
+echo "Starting Node.js API server on port 3000..."
 npm start &
 NODE_PID=$!
 
@@ -60,16 +60,9 @@ sleep 5
 
 # Check if we should run real-time data generation
 if [ "${ENABLE_REALTIME:-true}" = "true" ]; then
-    echo "🔥 Starting high-throughput data generator (${TARGET_TPS:-50} TPS)..."
+    echo "Starting high-throughput data generator (${TARGET_TPS:-50} TPS)..."
     python3 realtime_data_generator.py ${TARGET_TPS:-50} &
     PYTHON_PID=$!
-fi
-
-# Check if we should run real-time dashboard
-if [ "${ENABLE_DASHBOARD:-true}" = "true" ]; then
-    echo "📊 Starting real-time dashboard on port 3001..."
-    node realtime_dashboard.js &
-    DASHBOARD_PID=$!
 fi
 
 # Wait for any process to exit
@@ -84,8 +77,8 @@ RUN chown -R nodejs:nodejs /app
 
 USER nodejs
 
-# Expose ports
-EXPOSE 3000 3001
+# Expose only API port
+EXPOSE 3000
 
 # Health check for API
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \

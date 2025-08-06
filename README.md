@@ -66,6 +66,28 @@ npm start
 npm run realtime
 # Visit http://localhost:3001
 ```
+
+## Docker Setup (Alternative)
+
+### Quick Docker Start
+```bash
+# Start API server and data generator in Docker
+docker-compose up -d
+
+# Start real-time dashboard separately (outside Docker)
+npm run realtime
+```
+
+### Docker Architecture
+- **MongoDB Container**: Database service
+- **API + Generator Container**: Node.js API + Python data generator
+- **Real-time Dashboard**: Runs separately for better performance
+
+### Why Separate Dashboard?
+- Better performance when running locally
+- Avoids MongoDB change stream limitations in Docker
+- Easier debugging and development
+- More flexible deployment options
 <img width="2940" height="1646" alt="image" src="https://github.com/user-attachments/assets/86705c65-38cc-47a3-8c06-d49d493ff0dc" />
 
 ## **How to Test the Real-Time Dashboard**
@@ -180,9 +202,10 @@ This creates 50 transactions per second for live testing.
 
 ### 1. Docker Containerization
 - Multi-container setup with Docker Compose
-- Production-ready containers for all services
+- Production-ready containers for API and data generator
+- MongoDB container with persistent storage
 - Health checks and proper networking
-- One-command deployment
+- Real-time dashboard runs separately for optimal performance
 
 ### 2. Data Transformations
 - 3-stage pipeline: Cleaning → Enrichment → Business Rules
