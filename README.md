@@ -33,7 +33,11 @@ npm run realtime
 ## For real time sales run this pyhton we can see live upates on dashboard itself to the data
 # 6.  In new terminal: python realtime_data_generator.py 50
 ```
-
+## For real time sales run this pyhton we can see live upates on dashboard itself to the data
+# 6.  In new terminal: 
+```bash
+python realtime_data_generator.py 50
+```
 **That's it!** You can see the real time transactions! 
 
 ---
