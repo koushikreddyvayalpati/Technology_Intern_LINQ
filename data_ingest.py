@@ -48,17 +48,17 @@ class DataIngestion:
                 self.db = self.client['linq_assessment']
                 self.collection = self.db['sales_data']
                 
-                print("✅ Database connection successful")
+                print("Database connection successful")
                 return True
                 
             except Exception as e:
-                print(f"❌ Connection attempt {attempt + 1} failed: {e}")
+                print(f"Connection attempt {attempt + 1} failed: {e}")
                 if attempt < retries - 1:
                     wait_time = (2 ** attempt)  # Exponential backoff
-                    print(f"⏳ Waiting {wait_time} seconds before retry...")
+                    print(f"Waiting {wait_time} seconds before retry...")
                     time.sleep(wait_time)
                 else:
-                    print("💥 All connection attempts failed")
+                    print("All connection attempts failed")
                     return False
     
     def generate_realistic_timestamp(self, days_back=30):
@@ -163,7 +163,7 @@ class DataIngestion:
                 if is_valid:
                     valid_records.append(record)
                 else:
-                    print(f"⚠️  Skipping invalid record: {message}")
+                    print(f"Skipping invalid record: {message}")
                     failed_records += 1
             
             if valid_records:
@@ -172,10 +172,10 @@ class DataIngestion:
                     inserted_count = len(result.inserted_ids)
                     total_inserted += inserted_count
                     
-                    print(f"✅ Batch {i//batch_size + 1}: {inserted_count} records inserted")
+                    print(f"Batch {i//batch_size + 1}: {inserted_count} records inserted")
                     
                 except Exception as e:
-                    print(f"❌ Batch insertion failed: {e}")
+                    print(f" Batch insertion failed: {e}")
                     failed_records += len(valid_records)
         
         print(f"📈 Insertion Summary:")
@@ -189,11 +189,11 @@ class DataIngestion:
         """Verify data was inserted correctly"""
         try:
             total_count = self.collection.count_documents({})
-            print(f"🔍 Verification: {total_count} total records in database")
+            print(f"Verification: {total_count} total records in database")
             
             # Sample data check
             sample = self.collection.find().limit(3)
-            print("📋 Sample records:")
+            print("Sample records:")
             for record in sample:
                 print(f"   {record['timestamp'].strftime('%Y-%m-%d %H:%M')} | "
                       f"{record['category']} | ${record['value']} | {record['region']}")
@@ -201,14 +201,14 @@ class DataIngestion:
             return total_count > 0
             
         except Exception as e:
-            print(f"❌ Verification failed: {e}")
+            print(f"Verification failed: {e}")
             return False
     
     def close_connection(self):
         """Close database connection"""
         if self.client:
             self.client.close()
-            print("🔐 Database connection closed")
+            print("Database connection closed")
 
 def main():
     ingestion = DataIngestion()
@@ -225,7 +225,7 @@ def main():
         transformer = DataTransformer()
         transformed_data, metrics = transformer.transform_pipeline(raw_data)
         
-        print(f"\n📊 Transformation Metrics:")
+        print(f"\n Transformation Metrics:")
         print(f"   Total Revenue: ${metrics['total_revenue']:,.2f}")
         print(f"   Tax Collected: ${metrics['total_tax_collected']:,.2f}")
         print(f"   Commissions: ${metrics['total_commissions']:,.2f}")
@@ -238,17 +238,17 @@ def main():
         if inserted_count > 0:
             # Verify insertion
             if ingestion.verify_insertion():
-                print("🎉 Data ingestion completed successfully!")
+                print("Data ingestion completed successfully!")
             else:
-                print("⚠️  Data ingestion completed with verification issues")
+                print("Data ingestion completed with verification issues")
         else:
-            print("💥 Data ingestion failed")
+            print("Data ingestion failed")
             sys.exit(1)
     
     except KeyboardInterrupt:
-        print("\n⏹️  Process interrupted by user")
+        print("\nProcess interrupted by user")
     except Exception as e:
-        print(f"💥 Unexpected error: {e}")
+        print(f"Unexpected error: {e}")
         sys.exit(1)
     finally:
         ingestion.close_connection()
