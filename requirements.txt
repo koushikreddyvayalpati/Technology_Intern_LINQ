@@ -1,0 +1,5 @@
+pymongo>=4.6.0
+pandas>=2.2.0
+plotly>=5.17.0
+numpy>=1.24.0
+kaleido>=0.2.1 

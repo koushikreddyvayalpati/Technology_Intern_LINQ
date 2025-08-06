@@ -1,0 +1,38 @@
+{
+  "name": "linq-assessment",
+  "version": "1.0.0",
+  "description": "Technology Intern Take-Home Assessment",
+  "main": "datastore_setup.js",
+  "scripts": {
+    "setup": "node datastore_setup.js",
+    "start": "node server.js",
+    "realtime": "node realtime_dashboard.js",
+    "generate": "python3 realtime_data_generator.py",
+    "generate:50": "python3 realtime_data_generator.py 50",
+    "generate:100": "python3 realtime_data_generator.py 100",
+    "generate:burst": "python3 realtime_data_generator.py burst 60 200",
+    "docker:build": "docker build -t linq-assessment .",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:single": "docker run -d -p 3000:3000 -p 3001:3001 --name linq-single linq-assessment",
+    "docker:stop": "docker stop linq-single && docker rm linq-single"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.0.3",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.8.1"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "data-pipeline"
+  ],
+  "author": "Linq Technology Intern",
+  "license": "MIT"
+}

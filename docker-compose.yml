@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # MongoDB service (external database)
+  mongodb:
+    image: mongo:7.0
+    container_name: linq_mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: linq_assessment
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - linq_network
+
+  # Single container with everything (API + Real-time Generator + Dashboard)
+  linq_app:
+    build: .
+    container_name: linq_all_in_one
+    restart: unless-stopped
+    ports:
+      - "3000:3000"  # API Server
+      - "3001:3001"  # Real-time Dashboard
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URL=mongodb://admin:password@mongodb:27017/linq_assessment?authSource=admin
+      - TARGET_TPS=50        # 50 transactions per second
+      - ENABLE_REALTIME=true # Enable real-time data generation
+      - ENABLE_DASHBOARD=true # Enable real-time dashboard
+    depends_on:
+      - mongodb
+    networks:
+      - linq_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  mongodb_data:
+
+networks:
+  linq_network:
+    driver: bridge 
