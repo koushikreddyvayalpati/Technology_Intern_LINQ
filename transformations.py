@@ -26,7 +26,7 @@ class DataTransformer:
 
     def clean_data(self, data):
         """Clean and validate raw data"""
-        print("🧹 Cleaning data...")
+        print("Cleaning data...")
         
         # Convert to DataFrame if it's a list
         if isinstance(data, list):
@@ -38,7 +38,6 @@ class DataTransformer:
         
         # Remove duplicates based on customer_id and timestamp
         df = df.drop_duplicates(subset=['customer_id', 'timestamp'], keep='first')
-        
         # Validate customer_id format
         df = df[df['customer_id'].str.match(r'^CUST_\d{6}$', na=False)]
         
@@ -58,7 +57,7 @@ class DataTransformer:
 
     def enrich_data(self, df):
         """Enrich data with additional calculated fields"""
-        print("💎 Enriching data...")
+        print("Enriching data...")
         
         # Add price tier classification
         df['price_tier'] = pd.cut(df['value'], 
@@ -106,7 +105,7 @@ class DataTransformer:
 
     def apply_business_rules(self, df):
         """Apply business-specific transformations"""
-        print("📊 Applying business rules...")
+        print("Applying business rules...")
         
         # Calculate discount eligibility
         df['discount_eligible'] = (
@@ -165,7 +164,7 @@ class DataTransformer:
 
     def transform_pipeline(self, raw_data):
         """Complete transformation pipeline"""
-        print("🔄 Starting data transformation pipeline...")
+        print("Starting data transformation pipeline...")
         
         # Step 1: Clean data
         df = self.clean_data(raw_data)
@@ -179,7 +178,7 @@ class DataTransformer:
         # Step 4: Calculate metrics
         metrics = self.aggregate_metrics(df)
         
-        print("✅ Data transformation pipeline completed")
+        print("Data transformation pipeline completed")
         
         # Convert back to list of dictionaries for MongoDB
         transformed_data = df.to_dict('records')
@@ -210,7 +209,7 @@ def main():
     
     transformed_data, metrics = transformer.transform_pipeline(sample_data)
     
-    print("\n📊 Sample Transformation Results:")
+    print("\nSample Transformation Results:")
     print(f"Original records: {len(sample_data)}")
     print(f"Transformed records: {len(transformed_data)}")
     print(f"Total revenue: ${metrics['total_revenue']:.2f}")
