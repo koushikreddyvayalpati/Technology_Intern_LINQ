@@ -57,11 +57,11 @@ class HighThroughputDataGenerator:
             self.collection.create_index([("customer_id", 1)])
             self.collection.create_index([("category", 1), ("region", 1)])
             
-            print("✅ High-throughput generator connected to database")
-            print(f"🎯 Target: {self.target_tps} transactions per second")
+            print(" High-throughput generator connected to database")
+            print(f" Target: {self.target_tps} transactions per second")
             return True
         except Exception as e:
-            print(f"❌ Database connection failed: {e}")
+            print(f" Database connection failed: {e}")
             return False
     
     def generate_transaction_batch(self, batch_size):
@@ -118,19 +118,19 @@ class HighThroughputDataGenerator:
                     elapsed = time.time() - self.start_time
                     current_tps = self.transaction_count / elapsed if elapsed > 0 else 0
                     
-                    print(f"🚀 Batch: {inserted_count} transactions | Total: {self.transaction_count:,} | TPS: {current_tps:.1f}")
+                    print(f" Batch: {inserted_count} transactions | Total: {self.transaction_count:,} | TPS: {current_tps:.1f}")
                 else:
-                    print(f"🚀 Batch: {inserted_count} transactions | Total: {self.transaction_count:,}")
+                    print(f" Batch: {inserted_count} transactions | Total: {self.transaction_count:,}")
                 
                 return inserted_count
         except Exception as e:
-            print(f"❌ Error processing batch: {e}")
+            print(f" Error processing batch: {e}")
             return 0
     
     def run_high_throughput_generation(self):
         """Run high-throughput data generation at 50 TPS"""
-        print(f"🔥 Starting HIGH-THROUGHPUT generation: {self.target_tps} TPS")
-        print(f"📊 Batch size: {self.batch_size} | Interval: {self.batch_interval:.2f}s")
+        print(f" Starting HIGH-THROUGHPUT generation: {self.target_tps} TPS")
+        print(f" Batch size: {self.batch_size} | Interval: {self.batch_interval:.2f}s")
         
         self.running = True
         self.start_time = time.time()
@@ -154,10 +154,10 @@ class HighThroughputDataGenerator:
                     time.sleep(sleep_time)
                 
             except KeyboardInterrupt:
-                print("\n⏹️ Stopping high-throughput generation...")
+                print("\n Stopping high-throughput generation...")
                 self.running = False
             except Exception as e:
-                print(f"❌ Error in generation loop: {e}")
+                print(f" Error in generation loop: {e}")
                 time.sleep(1)  # Brief pause before retrying
     
     def run_burst_mode(self, duration_seconds=60, target_tps=100):
@@ -189,17 +189,17 @@ class HighThroughputDataGenerator:
                     time.sleep(sleep_time)
                 
             except KeyboardInterrupt:
-                print("\n⏹️ Stopping burst mode...")
+                print("\n Stopping burst mode...")
                 break
             except Exception as e:
-                print(f"❌ Burst mode error: {e}")
+                print(f" Burst mode error: {e}")
                 time.sleep(0.1)
         
         # Final statistics
         total_duration = time.time() - self.start_time
         final_tps = self.transaction_count / total_duration if total_duration > 0 else 0
         
-        print(f"\n📈 BURST MODE COMPLETE:")
+        print(f"\n BURST MODE COMPLETE:")
         print(f"   Duration: {total_duration:.1f} seconds")
         print(f"   Total Transactions: {self.transaction_count:,}")
         print(f"   Achieved TPS: {final_tps:.1f}")
@@ -216,7 +216,7 @@ class HighThroughputDataGenerator:
             total_duration = time.time() - self.start_time
             final_tps = self.transaction_count / total_duration
             
-            print(f"\n📊 FINAL STATISTICS:")
+            print(f"\n FINAL STATISTICS:")
             print(f"   Total Runtime: {total_duration:.1f} seconds")
             print(f"   Total Transactions: {self.transaction_count:,}")
             print(f"   Average TPS: {final_tps:.1f}")
@@ -225,7 +225,7 @@ class HighThroughputDataGenerator:
         
         if self.client:
             self.client.close()
-            print("🔐 Database connection closed")
+            print("Database connection closed")
 
 # Legacy class for backward compatibility
 class RealTimeDataGenerator(HighThroughputDataGenerator):
@@ -237,7 +237,7 @@ class RealTimeDataGenerator(HighThroughputDataGenerator):
     
     def run_continuous_generation(self, interval_seconds=30):
         """Legacy method - redirects to high-throughput generation"""
-        print("⚠️  Legacy mode detected. Switching to optimized high-throughput generation...")
+        print("Legacy mode detected. Switching to optimized high-throughput generation...")
         self.run_high_throughput_generation()
 
 class RealTimeMonitor:
@@ -249,14 +249,14 @@ class RealTimeMonitor:
     
     def start_monitoring(self, update_interval=60):
         """Start monitoring and displaying stats"""
-        print(f"📊 Starting real-time monitoring (every {update_interval}s)")
+        print(f"Starting real-time monitoring (every {update_interval}s)")
         self.monitoring = True
         
         while self.monitoring:
             try:
                 stats = self.generator.get_real_time_stats()
                 if stats:
-                    print(f"\n📈 Real-time Stats ({stats['last_updated'][:19]}):")
+                    print(f"\n Real-time Stats ({stats['last_updated'][:19]}):")
                     print(f"   Total Transactions: {stats['total_transactions']:,}")
                     print(f"   Today's Transactions: {stats['today_transactions']:,}")
                     print(f"   Recent (5min): {stats['recent_transactions']:,}")
@@ -264,10 +264,10 @@ class RealTimeMonitor:
                 time.sleep(update_interval)
                 
             except KeyboardInterrupt:
-                print("\n⏹️ Stopping monitoring...")
+                print("\n Stopping monitoring...")
                 self.monitoring = False
             except Exception as e:
-                print(f"❌ Monitoring error: {e}")
+                print(f" Monitoring error: {e}")
                 time.sleep(5)
     
     def stop_monitoring(self):
@@ -301,7 +301,7 @@ def main():
                 generator.batch_size = min(max(1, target_tps // 5), 20)
                 generator.batch_interval = generator.batch_size / generator.target_tps
             except ValueError:
-                print("❌ Invalid TPS value. Using default 50 TPS.")
+                print(" Invalid TPS value. Using default 50 TPS.")
                 generator = HighThroughputDataGenerator()
     else:
         # Default high-throughput mode (50 TPS)
@@ -311,22 +311,22 @@ def main():
         return
     
     try:
-        print(f"\n🚀 STARTING HIGH-THROUGHPUT DATA GENERATION")
-        print(f"📊 Target TPS: {generator.target_tps}")
-        print(f"📦 Batch Size: {generator.batch_size}")
-        print(f"⏱️  Batch Interval: {generator.batch_interval:.3f}s")
-        print(f"💡 Usage examples:")
+        print(f"\n STARTING HIGH-THROUGHPUT DATA GENERATION")
+        print(f" Target TPS: {generator.target_tps}")
+        print(f" Batch Size: {generator.batch_size}")
+        print(f"  Batch Interval: {generator.batch_interval:.3f}s")
+        print(f" Usage examples:")
         print(f"   python realtime_data_generator.py          # 50 TPS (default)")
         print(f"   python realtime_data_generator.py 100      # 100 TPS")
         print(f"   python realtime_data_generator.py burst 30 200  # 200 TPS for 30 seconds")
         print(f"   python realtime_data_generator.py legacy   # Original slow mode")
-        print(f"\n🔥 Press Ctrl+C to stop and see final statistics\n")
+        print(f"\n Press Ctrl+C to stop and see final statistics\n")
         
         # Start high-throughput generation
         generator.run_high_throughput_generation()
         
     except KeyboardInterrupt:
-        print("\n⏹️ Shutting down high-throughput generator...")
+        print("\nShutting down high-throughput generator...")
     finally:
         generator.stop_generation()
 
