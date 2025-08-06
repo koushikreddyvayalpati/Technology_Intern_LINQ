@@ -36,7 +36,7 @@ class DataIngestion:
         """Connect to MongoDB with retry logic"""
         for attempt in range(retries):
             try:
-                print(f"🔌 Attempting database connection (attempt {attempt + 1}/{retries})")
+                print(f"Attempting database connection (attempt {attempt + 1}/{retries})")
                 self.client = pymongo.MongoClient(
                     'mongodb+srv://koushik1314:Kalyani713@linqbackend.o0g46ue.mongodb.net/?retryWrites=true&w=majority&appName=Linqbackend',
                     serverSelectionTimeoutMS=10000
@@ -102,7 +102,7 @@ class DataIngestion:
     
     def generate_sample_data(self, num_records=2000):
         """Generate realistic sample data"""
-        print(f"📊 Generating {num_records} sample records...")
+        print(f"Generating {num_records} sample records...")
         
         data_batch = []
         
@@ -124,7 +124,7 @@ class DataIngestion:
             if (i + 1) % 500 == 0:
                 print(f"⏳ Generated {i + 1}/{num_records} records...")
         
-        print("✅ Data generation completed")
+        print(" Data generation completed")
         return data_batch
     
     def validate_data(self, record):
@@ -148,7 +148,7 @@ class DataIngestion:
     
     def insert_data(self, data_batch, batch_size=100):
         """Insert data with batch processing and validation"""
-        print(f"💾 Inserting {len(data_batch)} records in batches of {batch_size}...")
+        print(f"Inserting {len(data_batch)} records in batches of {batch_size}...")
         
         total_inserted = 0
         failed_records = 0
@@ -178,7 +178,7 @@ class DataIngestion:
                     print(f" Batch insertion failed: {e}")
                     failed_records += len(valid_records)
         
-        print(f"📈 Insertion Summary:")
+        print(f"Insertion Summary:")
         print(f"   Total records: {len(data_batch)}")
         print(f"   Successfully inserted: {total_inserted}")
         print(f"   Failed: {failed_records}")
