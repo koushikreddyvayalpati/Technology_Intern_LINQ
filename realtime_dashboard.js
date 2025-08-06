@@ -703,14 +703,14 @@ class UltraPerformanceDashboard {
       const clientId = socket.id;
       this.clients.set(clientId, { socket, connected: Date.now() });
       
-      console.log(`📱 Client connected (${this.clients.size} active)`);
+      console.log(`Client connected (${this.clients.size} active)`);
       
       // Send cached data immediately
       this.sendCachedData(socket);
       
       socket.on('disconnect', () => {
         this.clients.delete(clientId);
-        console.log(`📱 Client disconnected (${this.clients.size} active)`);
+        console.log(`Client disconnected (${this.clients.size} active)`);
       });
     });
   }
@@ -810,7 +810,7 @@ class UltraPerformanceDashboard {
     // Batched stats updates
     setInterval(() => this.broadcastStatsUpdate(), 5000);
     
-    console.log('🚀 Ultra-optimized monitoring started');
+    console.log('Optimized monitoring started');
   }
 
   handleNewTransaction(transaction) {
@@ -857,11 +857,11 @@ async function startUltraModern() {
     await dashboard.start();
     
     server.listen(PORT, () => {
-      console.log(`🚀 Ultra-Modern Dashboard: http://localhost:${PORT}`);
-      console.log(`⚡ High-performance mode activated`);
+      console.log(`Ultra-Modern Dashboard: http://localhost:${PORT}`);
+      console.log(`High-performance mode activated`);
     });
   } catch (error) {
-    console.error('❌ Startup failed:', error);
+    console.error('Startup failed:', error);
     process.exit(1);
   }
 }
